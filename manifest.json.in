@@ -1,0 +1,15 @@
+{
+    "name": "shrew-qt5.fredldotme",
+    "description": "Shrew Soft VPN",
+    "architecture": "@CLICK_ARCH@",
+    "title": "Shrew Soft VPN",
+    "hooks": {
+        "devtools": {
+            "apparmor": "shrew-qt5.apparmor",
+            "desktop":  "shrew-qt5.desktop"
+        }
+    },
+    "version": "2.3.0",
+    "maintainer": "Alfred Neumayer <dev.beidl@gmail.com>",
+    "framework" : "@CLICK_FRAMEWORK@"
+}
