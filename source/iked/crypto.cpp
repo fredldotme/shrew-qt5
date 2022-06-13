@@ -372,60 +372,64 @@ static unsigned char group18[] =
 
 bool dh_init( long group, DH ** dh_data, long * dh_size )
 {
-	BIGNUM *p = NULL;
-	BIGNUM *g = NULL;
-
 	DH * dh = DH_new();
 	if( dh == NULL )
 		return false;
 
+	dh->p = NULL;
+	dh->g = NULL;
+	dh->length = 0;
+
 	//
-	// calc p ( prime ) value
+	// set p ( prime ) value
 	//
 
-	p = BN_new();
-	if( p == NULL )
+	unsigned char * p_data = NULL;
+	size_t			p_size = 0;
+
+	dh->p = BN_new();
+	if( dh->p == NULL )
 		goto dh_failed;
 
 	switch( group )
 	{
 		case 1:
-			if( !BN_bin2bn( group1, sizeof( group1 ), p ) )
+			if( !BN_bin2bn( group1, sizeof( group1 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 2:
-			if( !BN_bin2bn( group2, sizeof( group2 ), p ) )
+			if( !BN_bin2bn( group2, sizeof( group2 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 5:
-			if( !BN_bin2bn( group5, sizeof( group5 ), p ) )
+			if( !BN_bin2bn( group5, sizeof( group5 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 14:
-			if( !BN_bin2bn( group14, sizeof( group14 ), p ) )
+			if( !BN_bin2bn( group14, sizeof( group14 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 15:
-			if( !BN_bin2bn( group15, sizeof( group15 ), p ) )
+			if( !BN_bin2bn( group15, sizeof( group15 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 16:
-			if( !BN_bin2bn( group16, sizeof( group16 ), p ) )
+			if( !BN_bin2bn( group16, sizeof( group16 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 17:
-			if( !BN_bin2bn( group17, sizeof( group17 ), p ) )
+			if( !BN_bin2bn( group17, sizeof( group17 ), dh->p ) )
 				goto dh_failed;
 			break;
 
 		case 18:
-			if( !BN_bin2bn( group18, sizeof( group18 ), p ) )
+			if( !BN_bin2bn( group18, sizeof( group18 ), dh->p ) )
 				goto dh_failed;
 			break;
 
@@ -434,21 +438,14 @@ bool dh_init( long group, DH ** dh_data, long * dh_size )
 	}
 
 	//
-	// calc g ( generator ) value
+	// set g ( generator ) value
 	//
 
-	g = BN_new();
-	if( g == NULL )
+	dh->g = BN_new();
+	if( dh->g == NULL )
 		goto dh_failed;
 
-	if( !BN_set_word( g, 2 ) )
-		goto dh_failed;
-
-	//
-	// set p and g values
-	//
-
-	if( !DH_set0_pqg( dh, p, NULL, g) )
+	if( !BN_set_word( dh->g, 2 ) )
 		goto dh_failed;
 
 	//
@@ -459,16 +456,12 @@ bool dh_init( long group, DH ** dh_data, long * dh_size )
 		goto dh_failed;
 
 	*dh_data = dh;
-	*dh_size = BN_num_bytes( p );
+	*dh_size = BN_num_bytes( dh->p );
 
 	return true;
 
 	dh_failed:
 
-	if ( p != NULL)
-		BN_free( p );
-	if ( g != NULL)
-		BN_free( g );
 	DH_free( dh );
 
 	return false;
