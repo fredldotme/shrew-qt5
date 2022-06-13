@@ -1,5 +1,7 @@
 clickable_minimum_required: 7.1.2
 builder: cmake
+build_args:
+  - -DQTGUI=1
 kill: qikec
 dependencies_target:
   - flex
