@@ -41,7 +41,7 @@
 
 %skeleton "lalr1.cc"
 %defines
-%define api.parser.class {conf_parser}
+%define "parser_class_name" "conf_parser"
 
 %{
 
@@ -56,7 +56,7 @@
 %lex-param   { IKED & iked }
 %locations
 %debug
-%define parse.error verbose
+%error-verbose
 
 // Symbols.
 %union
