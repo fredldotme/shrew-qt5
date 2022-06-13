@@ -1,6 +1,6 @@
 [Desktop Entry]
 _Name=Shrew Soft VPN
-Exec=bin/qikec %U
+Exec=env UBUNTU_MENUPROXY=0 bin/qikea %U
 Icon=assets/ikec.png
 Terminal=false
 Type=Application
