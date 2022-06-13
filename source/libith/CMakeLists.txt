@@ -16,13 +16,10 @@ add_library(
 
 # Linux realtime library
 
-if( PATH_LIB_RT )
-
-	target_link_libraries(
-		ss_ith
-		rt )
-
-endif( PATH_LIB_RT )
+target_link_libraries(
+	ss_ith
+	rt
+	pthread )
 
 set_target_properties(
 	ss_ith PROPERTIES
