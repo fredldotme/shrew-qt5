@@ -108,21 +108,18 @@ add_custom_target( ConfParser echo "Creating Conf Parser" )
 
 # Custom command for flex
 
-add_custom_command(
-	SOURCE conf.token.ll
-	COMMAND ${PATH_BIN_FLEX}
-	ARGS -d -oconf.token.cpp conf.token.ll
-	TARGET ConfParser
-	OUTPUTS conf.token.cpp )
+find_package(FLEX)
+
+flex_target(lexer conf.token.ll ${CMAKE_CURRENT_BINARY_DIR}/conf.token.cpp)
 
 # Custom command for bison
 
-add_custom_command(
-	SOURCE conf.parse.yy
-	COMMAND ${PATH_BIN_BISON}
-	ARGS -oconf.parse.cpp conf.parse.yy
-	TARGET ConfParser
-	OUTPUTS conf.parse.cpp conf.parse.hpp location.hh position.hh stack.hh )
+find_package(BISON)
+
+bison_target(parser conf.parse.yy ${CMAKE_CURRENT_BINARY_DIR}/conf.parse.cpp
+	DEFINES_FILE ${CMAKE_CURRENT_BINARY_DIR}/conf.parse.hpp)
+
+add_flex_bison_dependency(lexer parser)
 
 # install support
 
