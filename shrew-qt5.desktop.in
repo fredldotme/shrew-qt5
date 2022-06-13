@@ -1,6 +1,6 @@
 [Desktop Entry]
 _Name=Shrew Soft VPN
-Exec=qikec %U
+Exec=bin/qikec %U
 Icon=assets/ikec.png
 Terminal=false
 Type=Application
