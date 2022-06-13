@@ -14,6 +14,7 @@ include_directories(
 	${IKE_SOURCE_DIR}/source/libidb
 	${IKE_SOURCE_DIR}/source/libith
 	${IKE_SOURCE_DIR}/source/liblog
+	${CMAKE_CURRENT_BINARY_DIR}
 	${Qt5Widgets_INCLUDES} )
 
 link_directories(
