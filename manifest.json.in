@@ -4,7 +4,7 @@
     "architecture": "@CLICK_ARCH@",
     "title": "Shrew Soft VPN",
     "hooks": {
-        "devtools": {
+        "shrew-qt5": {
             "apparmor": "shrew-qt5.apparmor",
             "desktop":  "shrew-qt5.desktop"
         }
